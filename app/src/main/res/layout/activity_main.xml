@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/newFixedThreadPool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="newFixedThreadPool" />
+
+    <Button
+        android:id="@+id/newSingleThreadExecutor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="newSingleThreadExecutor"
+        android:layout_below="@+id/newFixedThreadPool"/>
+
+    <Button
+        android:id="@+id/newCachedThreadPool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="newCachedThreadPool"
+        android:layout_below="@+id/newSingleThreadExecutor"/>
+
+    <Button
+        android:id="@+id/newScheduledThreadPool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="newScheduledThreadPool"
+        android:layout_below="@+id/newCachedThreadPool"/>
+
+    <Button
+        android:id="@+id/shutdown"
+        android:text="close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newScheduledThreadPool"/>
+
+</RelativeLayout>
