@@ -7,10 +7,17 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/ThreadPoolExecutor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义ThreadPoolExecutor" />
+
+    <Button
         android:id="@+id/newFixedThreadPool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="newFixedThreadPool" />
+        android:text="newFixedThreadPool"
+        android:layout_below="@+id/ThreadPoolExecutor"/>
 
     <Button
         android:id="@+id/newSingleThreadExecutor"

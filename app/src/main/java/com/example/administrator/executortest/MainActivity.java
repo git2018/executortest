@@ -7,12 +7,15 @@ import android.view.View;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     String TAG = "executortest";
+    ThreadPoolExecutor executor;
     ExecutorService fixedThreadPool, singleThreadPool, cachedThreadPool;
     ScheduledExecutorService scheduledThreadPool;
 
@@ -20,6 +23,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.ThreadPoolExecutor).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                executor = new ThreadPoolExecutor(3, 10, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+                for (int i = 0; i < 50; i++) {
+                    final int index = i;
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String threadName = Thread.currentThread().getName();
+                                Log.v(TAG, "线程："+threadName+",正在执行第" + index + "个任务");
+                                Thread.currentThread().sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    executor.execute(runnable);
+                }
+            }
+        });
 
         findViewById(R.id.newFixedThreadPool).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.shutdown).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                executor.shutdownNow();
                 fixedThreadPool.shutdownNow();
                 singleThreadPool.shutdownNow();
                 cachedThreadPool.shutdownNow();
